@@ -54,7 +54,8 @@ jobs:
               run: | 
                 echo "
                 Repository: ${{ github.repository }}
-                Branch: ${{github.repository.branches }}
+                sha: ${{github.sha }}
+                Branch: ${{ github.ref_name }}
                 Actor: ${{github.actor }} 
                 Application: ${{vars.APP_NAME}} -  ${{vars.APP_VERSION}}
                 Database Password Exists ✔"
