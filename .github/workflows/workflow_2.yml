@@ -14,6 +14,8 @@ env:
 jobs:
     tests:
         runs-on: ubuntu-24.04
+        outputs: 
+            MI_OUTPUT: ${{ steps.MI_OUTPUT.outputs.nombre_random }}
         steps:
             - name: OBTENER_CODIGO
               uses: actions/checkout@v7
@@ -21,6 +23,9 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
+            - name: OUTPUT_SETUP
+              id: MI_OUTPUT
+              run: echo "nombre_random= ESTO ES UNA PRUENBA" >> "$GITHUB_OUTPUT"
             - name: INSTALAR_DEPENDENCIAS
               run: npm ci
             - name: EJECUTAR TESTS
@@ -48,6 +53,8 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
+            - name: USANDO_OUTPUT
+              run: echo "${{ needs.tests.outputs.MI_OUTPUT }}"
             - name: INSTALAR_DEPENDENCIAS
               run: npm ci
             - name: run build
