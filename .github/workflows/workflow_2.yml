@@ -1,0 +1,59 @@
+name: workflow_2
+
+on:
+    push:
+        branches:
+            - main
+            - dev
+env:
+    APP_NAME: Loan API 
+jobs:
+    tests:
+        runs-on: ubuntu-24.04
+        steps:
+            - name: OBTENER_CODIGO
+              uses: actions/checkout@v7
+            - name: INSTALAR_NODE
+              uses: actions/setup-node@v7
+              with:
+                node-version: '24'
+            - name: INSTALAR_DEPENDENCIAS
+              run: npm ci
+            - name: EJECUTAR TESTS
+              run: npm test
+    lint:
+        runs-on: ubuntu-24.04
+        steps:
+            - name: OBTENER_CODIGO
+              uses: actions/checkout@v7
+            - name: INSTALAR_NODE
+              uses: actions/setup-node@v7
+              with:
+                node-version: '24'
+            - name: INSTALAR_DEPENDENCIAS
+              run: npm ci
+            - name: EJECUTAR LINTER
+              run: npm lint
+    deploy:
+        needs: [lint,tests]
+        runs-on: ubuntu-24.04
+        steps:
+            - name: OBTENER_CODIGO
+              uses: actions/checkout@v7
+            - name: INSTALAR_NODE
+              uses: actions/setup-node@v7
+              with:
+                node-version: '24'
+            - name: INSTALAR_DEPENDENCIAS
+              run: npm ci
+            - name: run build
+              run: | 
+                echo "
+                Repository: ${{ github.repository }}
+                Branch:
+                Actor:
+                Application: ${{env.APP_NAME}}
+                Database Password Exists ✔"
+
+
+        
