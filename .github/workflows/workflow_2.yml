@@ -6,7 +6,11 @@ on:
             - main
             - dev
 env:
-    APP_NAME: Loan API 
+    APP_NAME: ${{ vars.APP_NAME}}
+    APP_VERSION: ${{ vars.APP_VERSION}}
+    DB_NAME: ${{ secrets.DB_NAME}}
+    DB_PASSWORD: ${{ secrets.DB_PASSWORD}}
+    DB_PORT: ${{ secrets.DB_PORT}}
 jobs:
     tests:
         runs-on: ubuntu-24.04
@@ -50,9 +54,9 @@ jobs:
               run: | 
                 echo "
                 Repository: ${{ github.repository }}
-                Branch:
-                Actor:
-                Application: ${{env.APP_NAME}}
+                Branch: ${{github.repository.Branch }}
+                Actor: ${{github.repository.Actor }} 
+                Application: ${{vars.APP_NAME}} -  ${{vars.APP_VERSION}}
                 Database Password Exists ✔"
 
 
