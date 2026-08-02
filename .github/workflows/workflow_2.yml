@@ -74,8 +74,8 @@ jobs:
             - name: SUBIR_ARTEFACTO
               uses: actions/upload-artifact@v7
               with:
-                name: test
-                path: /dist
+                name: dist-build
+                path: dist
                 if-no-files-found: error 
 
 
