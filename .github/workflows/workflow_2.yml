@@ -23,14 +23,10 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
+                cache: 'npm'
             - name: OUTPUT_SETUP
               id: MI_OUTPUT
               run: echo "nombre_random=ESTO ES UNA PRUENBA" >> "$GITHUB_OUTPUT"
-            - name: CACH_DEPENDENCIAS
-              uses: actions/cache@v6
-              with:
-                path: ~/.npm
-                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             - name: INSTALAR_DEPENDENCIAS
               run: npm ci
             - name: EJECUTAR TESTS
@@ -44,6 +40,7 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
+                cache: 'npm'
             - name: INSTALAR_DEPENDENCIAS
               run: npm ci
             - name: EJECUTAR LINTER
@@ -58,6 +55,7 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
+                cache: 'npm'
             - name: USANDO_OUTPUT
               run: echo "${{ needs.tests.outputs.MI_OUTPUT }}"
             - name: INSTALAR_DEPENDENCIAS
