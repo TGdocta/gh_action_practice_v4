@@ -23,6 +23,9 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
+            - name: OBTENER_NODE_DIR
+              id: npm_dir
+              run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
             - name: OUTPUT_SETUP
               id: MI_OUTPUT
               run: echo "nombre_random= ESTO ES UNA PRUENBA" >> "$GITHUB_OUTPUT"
@@ -60,12 +63,19 @@ jobs:
             - name: run build
               run: | 
                 echo "
+                npm run build
                 Repository: ${{ github.repository }}
                 sha: ${{github.sha }}
                 Branch: ${{ github.ref_name }}
                 Actor: ${{github.actor }} 
                 Application: ${{vars.APP_NAME}} -  ${{vars.APP_VERSION}}
                 Database Password Exists ✔"
+            - name: SUBIR_ARTEFACTO
+              uses: actions/upload-artifact@v7
+              with:
+                name: test
+                path: /dist
+                if-no-files-found: error 
 
 
         
