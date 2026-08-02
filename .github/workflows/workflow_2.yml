@@ -23,12 +23,13 @@ jobs:
               uses: actions/setup-node@v7
               with:
                 node-version: '24'
-            - name: OBTENER_NODE_DIR
-              id: npm_dir
-              run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
             - name: OUTPUT_SETUP
               id: MI_OUTPUT
-              run: echo "nombre_random= ESTO ES UNA PRUENBA" >> "$GITHUB_OUTPUT"
+              run: echo "nombre_random=ESTO ES UNA PRUENBA" >> "$GITHUB_OUTPUT"
+            - name: CACH_DEPENDENCIAS
+              uses: actions/cache@v4
+              with:
+                path: ~/.npm
             - name: INSTALAR_DEPENDENCIAS
               run: npm ci
             - name: EJECUTAR TESTS
