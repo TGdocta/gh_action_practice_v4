@@ -60,16 +60,17 @@ jobs:
               run: echo "${{ needs.tests.outputs.MI_OUTPUT }}"
             - name: INSTALAR_DEPENDENCIAS
               run: npm ci
-            - name: run build
+            - name: VALIDAR_APP
               run: | 
                 echo "
-                npm run build
                 Repository: ${{ github.repository }}
                 sha: ${{github.sha }}
                 Branch: ${{ github.ref_name }}
                 Actor: ${{github.actor }} 
                 Application: ${{vars.APP_NAME}} -  ${{vars.APP_VERSION}}
                 Database Password Exists ✔"
+            - name: COMPILAR_APP
+              run: npm run build
             - name: SUBIR_ARTEFACTO
               uses: actions/upload-artifact@v7
               with:
